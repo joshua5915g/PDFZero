@@ -62,7 +62,7 @@ export default function CropPdf() {
 
       const a = document.createElement("a");
       a.href = downloadUrl;
-      a.download = `pdfzero_cropped_${file.name}`;
+      a.download = `pdfghost_cropped_${file.name}`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

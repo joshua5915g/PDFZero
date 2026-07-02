@@ -2,8 +2,8 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "PDFZero",
-    short_name: "PDFZero",
+    name: "PDFGhost",
+    short_name: "PDFGhost",
     description: "Zero-server client-side PDF utility suite",
     start_url: "/",
     display: "standalone",

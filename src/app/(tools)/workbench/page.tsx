@@ -261,7 +261,7 @@ page.drawText("CONFIDENTIAL", {
     const url = URL.createObjectURL(file);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `pdfzero_agent_${file.name}`;
+    a.download = `pdfghost_agent_${file.name}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -278,7 +278,7 @@ page.drawText("CONFIDENTIAL", {
             <div className="size-6 rounded bg-[#F1F3F9] flex items-center justify-center">
               <span className="text-[#0F111A] text-xs font-black leading-none">P</span>
             </div>
-            <span className="text-[#F1F3F9] font-bold tracking-tight text-sm">PDFZero Sandbox</span>
+            <span className="text-[#F1F3F9] font-bold tracking-tight text-sm">PDFGhost Sandbox</span>
           </Link>
           
           <div className="flex items-center gap-3">

@@ -133,7 +133,7 @@ export default function ScanToPdf() {
 
       const a = document.createElement("a");
       a.href = downloadUrl;
-      a.download = `pdfzero_scanned_${Date.now()}.pdf`;
+      a.download = `pdfghost_scanned_${Date.now()}.pdf`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

@@ -258,7 +258,7 @@ export default function Home() {
     const url = URL.createObjectURL(file);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `pdfzero_agent_${file.name}`;
+    a.download = `pdfghost_agent_${file.name}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -280,7 +280,7 @@ export default function Home() {
             <div className="size-7 rounded-lg bg-gradient-to-br from-white to-gray-200 flex items-center justify-center shadow-lg shadow-black/10">
               <span className="text-[#08090D] text-xs font-black tracking-tighter">P</span>
             </div>
-            <span className="text-white font-extrabold tracking-tight text-sm">PDFZero</span>
+            <span className="text-white font-extrabold tracking-tight text-sm">PDFGhost</span>
           </button>
           
           <div className="flex items-center gap-3">

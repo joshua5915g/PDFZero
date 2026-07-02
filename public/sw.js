@@ -1,4 +1,4 @@
-const CACHE_NAME = "pdfzero-cache-v1";
+const CACHE_NAME = "pdfghost-cache-v1";
 const ASSETS_TO_CACHE = [
   "/",
   "/file.svg",

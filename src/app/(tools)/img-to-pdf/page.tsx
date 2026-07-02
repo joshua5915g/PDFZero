@@ -116,7 +116,7 @@ export default function ImgToPdf() {
 
       const a = document.createElement("a");
       a.href = downloadUrl;
-      a.download = `pdfzero_export_${Date.now()}.pdf`;
+      a.download = `pdfghost_export_${Date.now()}.pdf`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

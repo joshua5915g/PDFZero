@@ -46,7 +46,7 @@ export default function RepairPdf() {
 
       const a = document.createElement("a");
       a.href = downloadUrl;
-      a.download = `pdfzero_repaired_${file.name}`;
+      a.download = `pdfghost_repaired_${file.name}`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

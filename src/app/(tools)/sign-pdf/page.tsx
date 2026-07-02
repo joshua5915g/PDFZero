@@ -136,7 +136,7 @@ export default function SignPdf() {
 
       const a = document.createElement("a");
       a.href = downloadUrl;
-      a.download = `pdfzero_signed_${file.name}`;
+      a.download = `pdfghost_signed_${file.name}`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

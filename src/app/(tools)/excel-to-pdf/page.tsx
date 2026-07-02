@@ -94,7 +94,7 @@ export default function ExcelToPdf() {
         const downloadUrl = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = downloadUrl;
-        a.download = `pdfzero_excel_${file.name.replace(/\.[^/.]+$/, "")}.pdf`;
+        a.download = `pdfghost_excel_${file.name.replace(/\.[^/.]+$/, "")}.pdf`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

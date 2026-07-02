@@ -82,7 +82,7 @@ export default function WordToPdf() {
         const downloadUrl = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = downloadUrl;
-        a.download = `pdfzero_converted_${file.name.replace(/\.[^/.]+$/, "")}.pdf`;
+        a.download = `pdfghost_converted_${file.name.replace(/\.[^/.]+$/, "")}.pdf`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

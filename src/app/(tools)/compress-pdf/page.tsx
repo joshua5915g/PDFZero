@@ -95,7 +95,7 @@ export default function CompressPdf() {
 
       const a = document.createElement("a");
       a.href = downloadUrl;
-      a.download = `pdfzero_compressed_${file.name}`;
+      a.download = `pdfghost_compressed_${file.name}`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

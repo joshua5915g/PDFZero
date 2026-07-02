@@ -23,7 +23,7 @@ export default function Shell({ children }: ShellProps) {
             className="flex items-center gap-2 font-bold text-lg hover:opacity-80 transition"
           >
             <div className="w-7 h-7 rounded bg-blue-600 flex items-center justify-center text-white text-sm font-black">P</div>
-            <span>PDFZero</span>
+            <span>PDFGhost</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-6 text-sm">
@@ -61,7 +61,7 @@ export default function Shell({ children }: ShellProps) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8 pb-8 border-b border-slate-800 text-sm">
             
             <div>
-              <h4 className="font-bold mb-3">PDFZero</h4>
+              <h4 className="font-bold mb-3">PDFGhost</h4>
               <p className="text-xs text-slate-400">Professional PDF tools for everyone.</p>
             </div>
             
@@ -90,7 +90,7 @@ export default function Shell({ children }: ShellProps) {
           </div>
           
           <div className="flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 gap-4">
-            <span>&copy; {new Date().getFullYear()} PDFZero. All rights reserved.</span>
+            <span>&copy; {new Date().getFullYear()} PDFGhost. All rights reserved.</span>
             <div className="flex gap-6">
               <span>No Server Uploads</span>
               <span>Always Private</span>

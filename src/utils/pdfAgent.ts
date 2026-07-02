@@ -237,7 +237,7 @@ export async function executeAgentPrompt(
       logs.push(createLog("› Action identified: Protect PDF", "info"));
       
       // Extract password (look for single quoted strings or words after password)
-      let password = "pdfzero_secured";
+      let password = "pdfghost_secured";
       const matches = prompt.match(/(?:password|encrypt|protect)\s+(?:to|with|value)?\s*['"]?([a-zA-Z0-9@#$!%*?&]+)['"]?/i);
       
       let passwordToApply = "";

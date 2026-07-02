@@ -21,7 +21,7 @@ const generatePassword = (length: number, includeSymbols: boolean): string => {
 };
 
 export default function PasswordGenerator() {
-  const [password, setPassword] = useState("PDFZero!2024");
+  const [password, setPassword] = useState("PDFGhost!2024");
   const [length, setLength] = useState(12);
   const [includeSymbols, setIncludeSymbols] = useState(true);
   const [copied, setCopied] = useState(false);

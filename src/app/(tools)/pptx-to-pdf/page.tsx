@@ -97,7 +97,7 @@ export default function PptxToPdf() {
         // Footer
         doc.setFontSize(10);
         doc.setTextColor(150, 150, 150);
-        doc.text(`PDFZero Client-Side Slide Converter`, 50, 500);
+        doc.text(`PDFGhost Client-Side Slide Converter`, 50, 500);
         doc.text(`Page ${i}`, 650, 500);
       }
 

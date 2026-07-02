@@ -13,12 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PDFZero - Browser-first PDF toolkit",
-  description: "PDFZero is the browser-native PDF editor and converter with client-side privacy, fast WebAssembly workflows, and zero uploads.",
+  title: "PDFGhost - Browser-first PDF toolkit",
+  description: "PDFGhost is the browser-native PDF editor and converter with client-side privacy, fast WebAssembly workflows, and zero uploads.",
   manifest: "/manifest.json",
   themeColor: "#0F172A",
   openGraph: {
-    title: "PDFZero - Browser-first PDF toolkit",
+    title: "PDFGhost - Browser-first PDF toolkit",
     description: "Fix, convert, and optimize PDFs in the browser with zero upload.",
     type: "website",
     images: [
@@ -26,13 +26,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "PDFZero — browser-native PDF tool suite",
+        alt: "PDFGhost — browser-native PDF tool suite",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PDFZero - Browser-first PDF toolkit",
+    title: "PDFGhost - Browser-first PDF toolkit",
     description: "Fast, private, client-side PDF editing and conversion.",
   },
 };

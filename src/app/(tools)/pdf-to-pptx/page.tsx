@@ -88,7 +88,7 @@ export default function PdfToPptx() {
       setStatus("Compiling presentation slide file...");
       setProgress(100);
       
-      const fileName = `pdfzero_converted_${file.name.replace(/\.[^/.]+$/, "")}.pptx`;
+      const fileName = `pdfghost_converted_${file.name.replace(/\.[^/.]+$/, "")}.pptx`;
       await pptx.writeFile({ fileName });
 
       setStatus("Done!");

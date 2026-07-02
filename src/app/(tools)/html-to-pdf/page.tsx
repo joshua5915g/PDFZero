@@ -7,7 +7,7 @@ import { ArrowLeft, Code } from "lucide-react";
 export default function HtmlToPdf() {
   const [htmlCode, setHtmlCode] = useState(
     `<div style="padding: 40px; background: linear-gradient(135deg, #ff0055, #00ffcc); color: black; font-family: sans-serif; text-align: center; border: 10px solid black; box-shadow: 10px 10px 0px 0px rgba(0,0,0,1);">
-  <h1 style="font-size: 42px; font-weight: 900; margin-bottom: 20px;">PDFZero HTML EXPORT</h1>
+  <h1 style="font-size: 42px; font-weight: 900; margin-bottom: 20px;">PDFGhost HTML EXPORT</h1>
   <p style="font-size: 18px; font-weight: bold; font-family: monospace;">This DOM segment was rasterized and compiled entirely client-side.</p>
 </div>`
   );
@@ -47,7 +47,7 @@ export default function HtmlToPdf() {
       pdf.addImage(imgData, "PNG", 0, 0, canvas.width / 2, canvas.height / 2);
 
       setStatus("Triggering download...");
-      pdf.save(`pdfzero_html_export_${Date.now()}.pdf`);
+      pdf.save(`pdfghost_html_export_${Date.now()}.pdf`);
 
       setStatus("Done!");
     } catch (err: any) {

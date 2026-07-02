@@ -1,6 +1,6 @@
 {
-  "name": "PDFZero",
-  "short_name": "PDFZero",
+  "name": "PDFGhost",
+  "short_name": "PDFGhost",
   "description": "Powerful PDF tools that work entirely on your computer.",
   "start_url": "/",
   "display": "standalone",

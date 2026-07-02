@@ -102,7 +102,7 @@ export default function PdfToImg() {
       const downloadUrl = URL.createObjectURL(zipBlob);
       const a = document.createElement("a");
       a.href = downloadUrl;
-      a.download = `pdfzero_extracted_images_${Date.now()}.zip`;
+      a.download = `pdfghost_extracted_images_${Date.now()}.zip`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
