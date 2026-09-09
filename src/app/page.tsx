@@ -12,31 +12,13 @@ import DropZone from "@/components/ui/DropZone";
 import InteractiveCanvas from "@/components/ui/InteractiveCanvas";
 import { executeAgentPrompt, AgentLog } from "@/utils/pdfAgent";
 import { PDFDocument, rgb } from "pdf-lib";
-
-const allTools = [
-  // AI & Security Suite
-  { title: "Edge AI Chat", desc: "Private locally cached AI document answers", url: "/ai-chat", icon: MessageSquare, category: "security" },
-  { title: "Smart Auto-Redact", desc: "Scan and blackout PII coordinates instantly", url: "/redact-pdf", icon: EyeOff, category: "security" },
-  { title: "Digital Signature", desc: "Stamp signatures to canvas points", url: "/sign-pdf", icon: PenTool, category: "security" },
-  { title: "Lock Document", desc: "Apply secure password locks", url: "/protect-pdf", icon: Lock, category: "security" },
-  { title: "Unlock PDF", desc: "Strip document permissions", url: "/unlock-pdf", icon: Unlock, category: "security" },
-
-  // Page Layout Suite
-  { title: "Merge PDF", desc: "Combine multiple streams client-side", url: "/merge-pdf", icon: Combine, category: "layout" },
-  { title: "Split Range", desc: "Segment range-based PDF splitters", url: "/split-pdf", icon: Split, category: "layout" },
-  { title: "Rotate Pages", desc: "Turn specific index coordinate viewports", url: "/rotate-pdf", icon: RotateCw, category: "layout" },
-  { title: "Delete Pages", desc: "Strip pages visually from file indices", url: "/remove-pages", icon: Trash2, category: "layout" },
-  { title: "Organize Deck", desc: "Drag & drop visual deck sequencing", url: "/organize-pdf", icon: LayoutGrid, category: "layout" },
-  { title: "Compare Differences", desc: "Side-by-side text layout diff checker", url: "/compare-pdf", icon: FileText, category: "layout" },
-
-  // Format Conversions Suite
-  { title: "Word to PDF", desc: "Direct Word DOC document convert", url: "/word-to-pdf", icon: FileText, category: "conversion" },
-  { title: "Excel to PDF", desc: "Convert spreadsheets to layout sheets", url: "/excel-to-pdf", icon: FileSpreadsheet, category: "conversion" },
-  { title: "PPTX to PDF", desc: "Render slideshows to file pages", url: "/pptx-to-pdf", icon: Presentation, category: "conversion" },
-  { title: "PDF to Word", desc: "Map document text to DOC structures", url: "/pdf-to-word", icon: FileText, category: "conversion" },
-  { title: "PDF to Excel", desc: "Parse coordinates to spreadsheets", url: "/pdf-to-excel", icon: FileSpreadsheet, category: "conversion" },
-  { title: "Images to PDF", desc: "Compile image sets to PDF pages", url: "/img-to-pdf", icon: ImageIcon, category: "conversion" }
-];
+import DynamicIcon from "@/components/ui/DynamicIcon";
+import { ALL_TOOLS, CATEGORY_METADATA, ToolCategory, ToolItem } from "@/lib/toolsRegistry";
+import { Search, Sparkles as SparklesIcon, CheckCircle } from "lucide-react";
+import LinearToolCard from "@/components/ui/LinearToolCard";
+import AirGapHUD from "@/components/ui/AirGapHUD";
+import DefensiveDropZone from "@/components/ui/DefensiveDropZone";
+import ComputeEngineMask from "@/components/ui/ComputeEngineMask";
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
@@ -52,7 +34,8 @@ export default function Home() {
   const [redactionZones, setRedactionZones] = useState<Record<number, { x: number; y: number; w: number; h: number }[]>>({});
   const [activeTab, setActiveTab] = useState<"agent" | "script" | "redact">("agent");
   const [macroScript, setMacroScript] = useState(`// Stamp CONFIDENTIAL on page 1\nconst pages = doc.getPages();\nconst page = pages[0];\nconst { width, height } = page.getSize();\npage.drawText(\"CONFIDENTIAL\", {\n  x: width - 150,\n  y: height - 40,\n  size: 12,\n  color: rgb(0.8, 0.2, 0.2)\n});`);
-  const [selectedCategory, setSelectedCategory] = useState<"all" | "security" | "layout" | "conversion">("all");
+  const [selectedCategory, setSelectedCategory] = useState<"all" | ToolCategory>("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const terminalEndRef = useRef<HTMLDivElement>(null);
 
@@ -301,12 +284,7 @@ export default function Home() {
                 </button>
               </>
             ) : (
-              <div className="flex items-center gap-2 bg-white/[0.02] border border-white/[0.08] px-3.5 py-1.5 rounded-full shrink-0 shadow-inner">
-                <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse shadow-sm shadow-emerald-500/50" />
-                <span className="text-[10px] uppercase font-bold tracking-widest text-gray-400">
-                  Local Sandbox Active
-                </span>
-              </div>
+              <AirGapHUD />
             )}
           </div>
         </div>
@@ -338,83 +316,112 @@ export default function Home() {
               {/* Premium Dropzone Wrapper */}
               <div className="max-w-2xl mx-auto w-full">
                 <div className="bg-white/[0.02] border border-white/[0.08] backdrop-blur-xl p-3 rounded-3xl shadow-2xl shadow-black/60 hover:border-white/[0.12] transition-all duration-300">
-                  <DropZone
-                    accept={[".pdf"]}
-                    label="Drop PDF here to initialize Workspace"
-                    onFilesSelected={handleFilesSelected}
-                    maxFiles={1}
+                  <DefensiveDropZone
+                    acceptTypes={[".pdf", "application/pdf"]}
+                    maxBytes={150 * 1024 * 1024}
+                    label="Drop PDF here to initialize Autonomous Agent Workspace"
+                    sublabel="Verified %PDF-1.x binary magic bytes • Max 150MB local allocation"
+                    onValidPayload={handleFilesSelected}
                   />
                 </div>
               </div>
 
-              {/* Category Filters (Sleek pills layout like in the reference) */}
-              <div className="flex flex-wrap items-center justify-center gap-2.5 max-w-3xl mx-auto pt-2 animate-fade-in">
+              {/* Instant Search Bar */}
+              <div className="w-full max-w-xl mx-auto px-2">
+                <div className="relative flex items-center">
+                  <Search className="absolute left-4 size-4 text-slate-400 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search 160 tools (e.g. compress, invoice, mortgage, base64, gradient, resume...)"
+                    className="w-full h-12 pl-11 pr-10 bg-slate-900/80 border border-slate-800 hover:border-slate-700 focus:border-blue-500 rounded-2xl text-xs sm:text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none transition shadow-xl"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery("")}
+                      className="absolute right-3.5 p-1 text-slate-400 hover:text-white rounded-lg text-xs"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Category Filter Pills */}
+              <div className="flex flex-wrap items-center justify-center gap-2 max-w-4xl mx-auto animate-fade-in px-2">
                 {[
-                  { label: "All Tools", id: "all" },
-                  { label: "AI & Security", id: "security" },
-                  { label: "Page Layout", id: "layout" },
-                  { label: "Conversions", id: "conversion" },
+                  { label: "All Tools", id: "all", count: ALL_TOOLS.length },
+                  { label: "PDF Tools", id: "pdf", count: CATEGORY_METADATA.pdf.count },
+                  { label: "Image Studio", id: "image", count: CATEGORY_METADATA.image.count },
+                  { label: "Converters & Dev", id: "converter", count: CATEGORY_METADATA.converter.count },
+                  { label: "Calculators", id: "calculator", count: CATEGORY_METADATA.calculator.count },
+                  { label: "Business & Docs", id: "marketing", count: CATEGORY_METADATA.marketing.count },
+                  { label: "Design & Fun", id: "fun", count: CATEGORY_METADATA.fun.count },
                 ].map((category) => (
                   <button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id as any)}
-                    className={`h-9 px-5 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all border border-transparent cursor-pointer ${
+                    className={`h-8 px-3.5 rounded-full text-xs font-semibold transition-all border cursor-pointer flex items-center gap-1.5 ${
                       selectedCategory === category.id
-                        ? "bg-white text-[#08090D] border-white shadow-lg shadow-white/5 scale-[1.02]"
-                        : "bg-white/[0.02] border-white/[0.06] text-zinc-400 hover:text-white hover:bg-white/[0.04]"
+                        ? "bg-white text-slate-950 border-white shadow-lg shadow-white/10 scale-[1.02]"
+                        : "bg-slate-900/60 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800"
                     }`}
                   >
-                    {category.label}
+                    <span>{category.label}</span>
+                    <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${selectedCategory === category.id ? "bg-slate-200 text-slate-900 font-bold" : "bg-slate-800 text-slate-400"}`}>
+                      {category.count}
+                    </span>
                   </button>
                 ))}
               </div>
 
-              {/* Local Utilities Grid of Small Cards */}
-              <div className="space-y-6 pt-4 w-full flex flex-col items-center">
-                <div className="border-b border-white/[0.06] pb-4 flex items-center justify-between w-full">
-                  <div className="space-y-1">
-                    <h2 className="text-xs font-black text-white tracking-widest uppercase text-center">Direct Toolkit Modules</h2>
-                    <p className="text-[10px] text-zinc-500 font-medium text-center">Click any utility to open its dedicated offline page</p>
+              {/* 160 Tools Dynamic Grid */}
+              <div className="space-y-6 pt-2 w-full flex flex-col items-center">
+                <div className="border-b border-slate-800 pb-3 flex items-center justify-between w-full max-w-6xl px-2">
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-xs font-bold text-slate-200 tracking-wider uppercase">
+                      {selectedCategory === "all" ? "All 160 Free Tools" : CATEGORY_METADATA[selectedCategory]?.name}
+                    </h2>
+                    <span className="text-[11px] text-slate-500 font-mono">
+                      ({ALL_TOOLS.filter((t) => {
+                        const matchesCat = selectedCategory === "all" || t.category === selectedCategory;
+                        if (!matchesCat) return false;
+                        if (!searchQuery.trim()) return true;
+                        const q = searchQuery.toLowerCase().trim();
+                        return t.title.toLowerCase().includes(q) || t.description.toLowerCase().includes(q) || t.tags.some(tag => tag.toLowerCase().includes(q));
+                      }).length} available)
+                    </span>
                   </div>
-                  <span className="text-[10px] text-emerald-400/80 bg-emerald-500/5 border border-emerald-500/10 px-2.5 py-1 rounded-full font-bold tracking-widest uppercase">
-                    Client-Side Secure
+                  <span className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full font-bold tracking-wider uppercase">
+                    100% Free • No Signup
                   </span>
                 </div>
 
-                <div className="flex flex-wrap justify-center gap-4 w-full">
-                  {allTools
-                    .filter((tool) => selectedCategory === "all" || tool.category === selectedCategory)
-                    .map((tool, idx) => {
-                      const Icon = tool.icon;
-                      
-                      // Determine theme styling based on category
-                      const theme = tool.category === "security" 
-                        ? { text: "text-[#818CF8]", bg: "bg-[#6366F1]/10", border: "border-[#6366F1]/10", hover: "hover:border-[#6366F1]/30 hover:shadow-[#6366F1]/5" }
-                        : tool.category === "layout"
-                        ? { text: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/10", hover: "hover:border-emerald-500/30 hover:shadow-emerald-500/5" }
-                        : { text: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-500/10", hover: "hover:border-amber-500/30 hover:shadow-amber-500/5" };
-
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full max-w-6xl px-2">
+                  {ALL_TOOLS
+                    .filter((tool) => {
+                      const matchesCat = selectedCategory === "all" || tool.category === selectedCategory;
+                      if (!matchesCat) return false;
+                      if (!searchQuery.trim()) return true;
+                      const q = searchQuery.toLowerCase().trim();
                       return (
-                        <Link 
-                          key={idx} 
-                          href={tool.url}
-                          className={`group bg-[#121420]/30 border border-white/[0.06] backdrop-blur-md p-6 rounded-2xl flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-[#151929]/50 ${theme.hover} hover:-translate-y-1 w-full sm:w-[220px] min-h-[175px]`}
-                        >
-                          <div className={`p-2.5 rounded-xl shrink-0 ${theme.bg} ${theme.text} ${theme.border} border transition-colors`}>
-                            <Icon className="size-5" />
-                          </div>
-                          
-                          <div className="space-y-1.5 mt-4">
-                            <h3 className="text-sm font-bold text-gray-200 group-hover:text-white transition-colors">
-                              {tool.title}
-                            </h3>
-                            <p className="text-xs text-zinc-400 font-light leading-relaxed group-hover:text-zinc-300 transition-colors">
-                              {tool.desc}
-                            </p>
-                          </div>
-                        </Link>
+                        tool.title.toLowerCase().includes(q) ||
+                        tool.description.toLowerCase().includes(q) ||
+                        tool.tags.some((tag) => tag.toLowerCase().includes(q))
                       );
-                    })}
+                    })
+                    .map((tool) => (
+                      <LinearToolCard
+                        key={tool.id}
+                        title={tool.title}
+                        description={tool.description}
+                        url={tool.url}
+                        iconName={tool.iconName}
+                        badge={tool.badge}
+                        category={CATEGORY_METADATA[tool.category]?.name || tool.category}
+                      />
+                    ))}
                 </div>
               </div>
             </div>
@@ -424,6 +431,11 @@ export default function Home() {
               {/* Left Column - Interactive Canvas Viewport */}
               <div className="lg:col-span-7 flex flex-col h-full min-h-[400px]">
                 <div className="flex-grow min-h-0 bg-[#0B0D13] border border-white/[0.04] rounded-3xl shadow-2xl p-4 flex items-center justify-center relative overflow-hidden">
+                  <ComputeEngineMask
+                    isComputing={isProcessing}
+                    progressPercent={status.includes("Baking") ? 85 : 55}
+                    taskPhase={status || "Executing client-side document operation..."}
+                  />
                   <div className="w-full h-full overflow-auto flex items-center justify-center">
                     <InteractiveCanvas
                       file={file}
