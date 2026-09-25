@@ -2,9 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowLeft, Download, Printer, Sparkles } from "lucide-react";
+import { ArrowLeft, Download, Printer } from "lucide-react";
 import DynamicIcon from "@/components/ui/DynamicIcon";
-import AirGapHUD from "@/components/ui/AirGapHUD";
 
 export interface DocGeneratorLayoutProps {
   title: string;
@@ -37,27 +36,25 @@ export default function DocGeneratorLayout({
       <div className="flex items-center justify-between">
         <Link
           href="/"
-          className="inline-flex items-center text-xs font-semibold text-slate-400 hover:text-amber-400 transition-colors gap-2 group"
+          className="inline-flex items-center text-xs font-medium text-[#6e6e73] hover:text-[#0071e3] transition-colors gap-2 group"
         >
           <ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
-          <span>All 160 Free Tools</span>
-          <span className="text-slate-600">/</span>
-          <span className="text-slate-400">{category}</span>
+          <span>All Tools</span>
+          <span className="text-black/20">/</span>
+          <span className="text-[#1d1d1f] font-semibold">{category}</span>
         </Link>
-        <AirGapHUD />
       </div>
 
       {/* Tool Header Card */}
-      <div className="bg-[#0e0f13] border border-[#22242a] p-6 rounded-2xl relative overflow-hidden backdrop-blur-md shadow-xl">
-        <div className="absolute -right-12 -top-12 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="bg-white/80 border border-black/[0.06] p-6 sm:p-7 rounded-3xl relative overflow-hidden backdrop-blur-2xl shadow-[0_4px_24px_rgba(0,0,0,0.03)]">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-start gap-4">
-            <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-inner">
-              <DynamicIcon name={iconName} className="size-7" />
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#ff9500] to-[#ffb340] text-white flex items-center justify-center shadow-md shadow-orange-500/20 shrink-0">
+              <DynamicIcon name={iconName} className="size-6" />
             </div>
             <div className="space-y-1">
-              <h1 className="text-2xl font-bold text-[#e6e8ec] tracking-tight">{title}</h1>
-              <p className="text-sm text-[#8c929d] max-w-2xl leading-relaxed">{description}</p>
+              <h1 className="text-2xl sm:text-3xl font-bold text-[#1d1d1f] tracking-tight">{title}</h1>
+              <p className="text-sm text-[#6e6e73] max-w-2xl leading-relaxed">{description}</p>
             </div>
           </div>
 
@@ -65,7 +62,7 @@ export default function DocGeneratorLayout({
             {onPrint && (
               <button
                 onClick={onPrint}
-                className="px-3.5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold transition inline-flex items-center gap-2 border border-slate-700"
+                className="px-4 py-2.5 bg-black/[0.04] hover:bg-black/[0.08] text-[#1d1d1f] rounded-xl text-xs font-semibold transition inline-flex items-center gap-2 border border-black/[0.08]"
               >
                 <Printer className="size-4" />
                 <span>Print</span>
@@ -74,7 +71,7 @@ export default function DocGeneratorLayout({
             <button
               onClick={onDownloadPdf}
               disabled={isGenerating}
-              className="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-bold rounded-xl text-xs transition shadow-lg inline-flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+              className="px-5 py-2.5 bg-[#0071e3] hover:bg-[#0077ed] text-white font-semibold rounded-xl text-xs transition shadow-md shadow-blue-500/20 inline-flex items-center gap-2 disabled:opacity-50 cursor-pointer"
             >
               <Download className="size-4" />
               <span>{isGenerating ? "Rendering..." : "Download PDF"}</span>
@@ -86,28 +83,28 @@ export default function DocGeneratorLayout({
       {/* Two Column Layout: Form vs Paper Preview */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Form Controls */}
-        <div className="lg:col-span-5 bg-slate-900/40 border border-slate-800/80 backdrop-blur-md p-6 rounded-2xl space-y-6">
-          <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 pb-2 border-b border-slate-800">
+        <div className="lg:col-span-5 bg-white border border-black/[0.08] backdrop-blur-xl p-6 rounded-3xl space-y-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+          <div className="text-xs font-semibold uppercase tracking-wider text-[#86868b] pb-2 border-b border-black/[0.06]">
             Document Details
           </div>
           {formControls}
         </div>
 
         {/* Paper Document Preview Canvas */}
-        <div className="lg:col-span-7 bg-slate-950/80 border border-slate-800/90 rounded-2xl p-4 sm:p-8 flex justify-center overflow-x-auto shadow-2xl">
-          <div className="w-full max-w-[620px] bg-white text-slate-900 rounded-lg shadow-2xl overflow-hidden p-6 sm:p-8 text-xs font-sans print:m-0 print:p-0">
+        <div className="lg:col-span-7 bg-[#f5f5f7] border border-black/[0.08] rounded-3xl p-4 sm:p-8 flex justify-center overflow-x-auto shadow-inner">
+          <div className="w-full max-w-[620px] bg-white text-[#1d1d1f] rounded-xl shadow-lg border border-black/[0.06] overflow-hidden p-6 sm:p-8 text-xs font-sans print:m-0 print:p-0">
             {previewNode}
           </div>
         </div>
       </div>
 
       {tips && tips.length > 0 && (
-        <div className="bg-slate-900/30 border border-slate-800/60 p-5 rounded-2xl space-y-2">
-          <div className="text-xs font-semibold text-slate-300">Document Tips</div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-slate-400">
+        <div className="bg-white/80 border border-black/[0.06] p-5 rounded-2xl space-y-2 shadow-xs">
+          <div className="text-xs font-semibold text-[#1d1d1f]">Document Tips</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-[#6e6e73]">
             {tips.map((tip, idx) => (
               <div key={idx} className="flex items-start gap-1.5">
-                <span className="text-amber-400">✓</span>
+                <span className="text-[#34c759] font-bold">✓</span>
                 <span>{tip}</span>
               </div>
             ))}

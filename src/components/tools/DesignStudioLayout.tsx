@@ -53,29 +53,28 @@ export default function DesignStudioLayout({
       <div className="flex items-center justify-between">
         <Link
           href="/"
-          className="inline-flex items-center text-xs font-semibold text-slate-400 hover:text-pink-400 transition-colors gap-2 group"
+          className="inline-flex items-center text-xs font-medium text-[#6e6e73] hover:text-[#0071e3] transition-colors gap-2 group"
         >
           <ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
-          <span>All 160 Free Tools</span>
-          <span className="text-slate-600">/</span>
-          <span className="text-slate-400">{category}</span>
+          <span>All Tools</span>
+          <span className="text-black/20">/</span>
+          <span className="text-[#1d1d1f] font-semibold">{category}</span>
         </Link>
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-pink-500/10 text-pink-300 border border-pink-500/20">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#af52de]/10 text-[#af52de] border border-[#af52de]/20">
           <Sparkles className="size-3" />
           Live CSS Generator
         </span>
       </div>
 
-      {/* Tool Header Card */}
-      <div className="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl relative overflow-hidden backdrop-blur-md">
-        <div className="absolute -right-12 -top-12 w-48 h-48 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Apple Studio Tool Header Card */}
+      <div className="bg-white/80 border border-black/[0.06] p-6 sm:p-7 rounded-3xl relative overflow-hidden backdrop-blur-2xl shadow-[0_4px_24px_rgba(0,0,0,0.03)]">
         <div className="flex items-start gap-4">
-          <div className="p-3 rounded-xl bg-pink-500/10 text-pink-400 border border-pink-500/20 shadow-inner">
-            <DynamicIcon name={iconName} className="size-7" />
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#af52de] to-[#da8fff] text-white flex items-center justify-center shadow-md shadow-purple-500/20 shrink-0">
+            <DynamicIcon name={iconName} className="size-6" />
           </div>
           <div className="space-y-1">
-            <h1 className="text-2xl font-bold text-white tracking-tight">{title}</h1>
-            <p className="text-sm text-slate-400 max-w-3xl leading-relaxed">{description}</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#1d1d1f] tracking-tight">{title}</h1>
+            <p className="text-sm text-[#6e6e73] max-w-3xl leading-relaxed">{description}</p>
           </div>
         </div>
       </div>
@@ -83,8 +82,8 @@ export default function DesignStudioLayout({
       {/* Controls & Live Preview Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Controls Column */}
-        <div className="lg:col-span-5 bg-slate-900/40 border border-slate-800/80 backdrop-blur-md p-6 rounded-2xl space-y-6">
-          <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 pb-2 border-b border-slate-800">
+        <div className="lg:col-span-5 bg-white border border-black/[0.08] backdrop-blur-xl p-6 rounded-3xl space-y-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+          <div className="text-xs font-semibold uppercase tracking-wider text-[#86868b] pb-2 border-b border-black/[0.06]">
             Customize Parameters
           </div>
           {controls}
@@ -93,20 +92,20 @@ export default function DesignStudioLayout({
         {/* Live Preview & Code Column */}
         <div className="lg:col-span-7 space-y-6">
           {/* Live Preview Canvas */}
-          <div className="bg-slate-950 border border-slate-800 p-6 rounded-2xl min-h-[320px] flex items-center justify-center relative overflow-hidden">
+          <div className="bg-[#f5f5f7] border border-black/[0.08] p-6 rounded-3xl min-h-[320px] flex items-center justify-center relative overflow-hidden shadow-inner">
             {preview}
           </div>
 
           {/* Generated Code Block */}
-          <div className="bg-slate-900/50 border border-slate-800 rounded-2xl overflow-hidden">
-            <div className="px-4 py-3 bg-slate-950/80 border-b border-slate-800 flex items-center justify-between">
+          <div className="bg-white border border-black/[0.08] rounded-3xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+            <div className="px-5 py-3.5 bg-[#f5f5f7] border-b border-black/[0.06] flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setCodeTab("css")}
                   className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${
                     codeTab === "css"
-                      ? "bg-pink-500/20 text-pink-300 border border-pink-500/30"
-                      : "text-slate-400 hover:text-white"
+                      ? "bg-white text-[#1d1d1f] shadow-xs border border-black/[0.08]"
+                      : "text-[#6e6e73] hover:text-[#1d1d1f]"
                   }`}
                 >
                   Vanilla CSS
@@ -116,8 +115,8 @@ export default function DesignStudioLayout({
                     onClick={() => setCodeTab("tailwind")}
                     className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${
                       codeTab === "tailwind"
-                        ? "bg-pink-500/20 text-pink-300 border border-pink-500/30"
-                        : "text-slate-400 hover:text-white"
+                        ? "bg-white text-[#1d1d1f] shadow-xs border border-black/[0.08]"
+                        : "text-[#6e6e73] hover:text-[#1d1d1f]"
                     }`}
                   >
                     Tailwind CSS
@@ -127,23 +126,23 @@ export default function DesignStudioLayout({
 
               <button
                 onClick={() => handleCopy(codeTab === "css" ? cssCode : (tailwindCode || cssCode), codeTab === "tailwind")}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-medium transition"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-black/[0.04] hover:bg-black/[0.08] text-[#1d1d1f] border border-black/[0.08] rounded-xl text-xs font-semibold transition"
               >
                 {(codeTab === "css" ? copiedCSS : copiedTailwind) ? (
                   <>
-                    <Check className="size-3 text-emerald-400" />
-                    <span>Copied!</span>
+                    <Check className="size-3 text-[#34c759]" />
+                    <span className="text-[#34c759]">Copied!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="size-3" />
+                    <Copy className="size-3 text-[#6e6e73]" />
                     <span>Copy Code</span>
                   </>
                 )}
               </button>
             </div>
 
-            <pre className="p-4 text-xs font-mono text-pink-200 overflow-x-auto whitespace-pre-wrap bg-slate-950/40">
+            <pre className="p-5 text-xs font-mono text-[#1d1d1f] overflow-x-auto whitespace-pre-wrap bg-white">
               <code>{codeTab === "css" ? cssCode : (tailwindCode || cssCode)}</code>
             </pre>
           </div>
@@ -151,12 +150,12 @@ export default function DesignStudioLayout({
       </div>
 
       {tips && tips.length > 0 && (
-        <div className="bg-slate-900/30 border border-slate-800/60 p-5 rounded-2xl space-y-2">
-          <div className="text-xs font-semibold text-slate-300">Design Tips</div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-slate-400">
+        <div className="bg-white/80 border border-black/[0.06] p-5 rounded-2xl space-y-2 shadow-xs">
+          <div className="text-xs font-semibold text-[#1d1d1f]">Design Tips</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-[#6e6e73]">
             {tips.map((tip, idx) => (
               <div key={idx} className="flex items-start gap-1.5">
-                <span className="text-pink-400">✓</span>
+                <span className="text-[#af52de] font-bold">✓</span>
                 <span>{tip}</span>
               </div>
             ))}

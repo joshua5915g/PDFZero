@@ -16,9 +16,9 @@ import DynamicIcon from "@/components/ui/DynamicIcon";
 import { ALL_TOOLS, CATEGORY_METADATA, ToolCategory, ToolItem } from "@/lib/toolsRegistry";
 import { Search, Sparkles as SparklesIcon, CheckCircle } from "lucide-react";
 import LinearToolCard from "@/components/ui/LinearToolCard";
-import AirGapHUD from "@/components/ui/AirGapHUD";
 import DefensiveDropZone from "@/components/ui/DefensiveDropZone";
 import ComputeEngineMask from "@/components/ui/ComputeEngineMask";
+import Shell from "@/components/layout/Shell";
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
@@ -249,98 +249,57 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#08090D] text-[#F1F3F9] font-sans pb-24 relative overflow-hidden">
-      
-      {/* Apple-grade ambient mesh background glow overlays */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[500px] bg-gradient-to-b from-[#6366F1]/12 via-[#4F46E5]/4 to-transparent rounded-full blur-[150px] pointer-events-none z-0" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#10B981]/5 blur-[120px] pointer-events-none z-0" />
-      <div className="absolute top-1/3 left-0 w-[400px] h-[400px] bg-[#6366F1]/3 blur-[120px] pointer-events-none z-0" />
-      
-      {/* Centered Fixed Navigation Bar - Frosted Glass effect */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#08090D]/70 backdrop-blur-xl border-b border-white/[0.04] h-16 flex items-center justify-center">
-        <div className="w-full max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <button onClick={clearAll} className="flex items-center gap-3 hover:opacity-95 transition-opacity bg-transparent border-0 text-left p-0 cursor-pointer">
-            <div className="size-7 rounded-lg bg-gradient-to-br from-white to-gray-200 flex items-center justify-center shadow-lg shadow-black/10">
-              <span className="text-[#08090D] text-xs font-black tracking-tighter">P</span>
-            </div>
-            <span className="text-white font-extrabold tracking-tight text-sm">PDFGhost</span>
-          </button>
-          
-          <div className="flex items-center gap-3">
-            {file ? (
-              <>
-                <button
-                  onClick={triggerDownload}
-                  className="h-9 px-4 bg-white hover:bg-gray-100 text-[#08090D] text-xs font-bold rounded-lg flex items-center gap-1.5 transition-all shadow-lg active:scale-[0.98] border-0 cursor-pointer"
-                >
-                  <Download className="size-3.5" />
-                  Export Document
-                </button>
-                <button
-                  onClick={clearAll}
-                  className="h-9 px-3.5 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-gray-300 hover:text-white text-xs font-semibold rounded-lg transition-colors cursor-pointer"
-                >
-                  Reset Workspace
-                </button>
-              </>
-            ) : (
-              <AirGapHUD />
-            )}
-          </div>
-        </div>
-      </nav>
+    <Shell>
+      <div className="min-h-screen bg-[#fbfbfd] text-[#1d1d1f] font-sans pb-24 relative overflow-hidden apple-mesh-glow">
+        
+        {/* Subtle Apple Studio Ambient Glows */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-gradient-to-b from-[#0071e3]/5 via-[#af52de]/3 to-transparent rounded-full blur-[140px] pointer-events-none z-0" />
+        <div className="absolute top-96 right-0 w-[500px] h-[500px] bg-[#34c759]/3 blur-[140px] pointer-events-none z-0" />
 
-      {/* Unified Center-Aligned Main Viewport */}
-      <main className="w-full flex flex-col items-center justify-start px-6 relative z-10" style={{ paddingTop: "130px" }}>
-        <div className="w-full max-w-7xl mx-auto flex flex-col items-center space-y-12">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 relative z-10 pt-6 sm:pt-10">
           
           {!file ? (
-            <div className="space-y-10 w-full flex flex-col items-center pt-2">
+            <div className="space-y-10 w-full flex flex-col items-center">
               
-              {/* Hero header */}
-              <div className="max-w-3xl mx-auto text-center space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.02] border border-white/[0.06] text-gray-400 text-[10px] font-bold uppercase tracking-widest shadow-lg backdrop-blur-md animate-fade-in">
-                  <Sparkles className="size-3 text-[#818CF8]" />
-                  100% Serverless WebAssembly Toolkit
-                </div>
-                <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight pt-1">
-                  <span className="bg-gradient-to-b from-white via-slate-100 to-indigo-300 bg-clip-text text-transparent">
-                    Autonomous PDF Agent
-                  </span>
+              {/* Apple Studio Hero Header */}
+              <div className="max-w-3xl mx-auto text-center space-y-4 pt-4">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#1d1d1f] leading-[1.08]">
+                  Everything PDF. <span className="text-[#0071e3]">Zero Uploads.</span>
                 </h1>
-                <p className="text-xs md:text-sm text-zinc-400 max-w-lg mx-auto leading-relaxed font-light">
-                  Control, modify, and secure documents through simple natural language instructions or JavaScript scripts. Everything processes locally in-memory.
+                
+                <p className="text-sm sm:text-base text-[#6e6e73] max-w-xl mx-auto leading-relaxed font-normal">
+                  Edit, sign, convert, and protect documents with autonomous AI instructions and {ALL_TOOLS.length} free tools. Runs entirely in your browser—fast, private, and secure.
                 </p>
               </div>
 
-              {/* Premium Dropzone Wrapper */}
+              {/* Apple Studio Frosted Dropzone Card */}
               <div className="max-w-2xl mx-auto w-full">
-                <div className="bg-white/[0.02] border border-white/[0.08] backdrop-blur-xl p-3 rounded-3xl shadow-2xl shadow-black/60 hover:border-white/[0.12] transition-all duration-300">
+                <div className="bg-white/80 border border-black/[0.06] backdrop-blur-2xl p-3.5 sm:p-4 rounded-[32px] shadow-[0_12px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.07)] transition-all duration-300">
                   <DefensiveDropZone
                     acceptTypes={[".pdf", "application/pdf"]}
                     maxBytes={150 * 1024 * 1024}
-                    label="Drop PDF here to initialize Autonomous Agent Workspace"
-                    sublabel="Verified %PDF-1.x binary magic bytes • Max 150MB local allocation"
+                    label="Drop a PDF to launch Autonomous Studio Workspace"
+                    sublabel="Client-side WebAssembly sandbox • Max 150MB local allocation"
                     onValidPayload={handleFilesSelected}
                   />
                 </div>
               </div>
 
-              {/* Instant Search Bar */}
-              <div className="w-full max-w-xl mx-auto px-2">
+              {/* Apple Spotlight Search Bar */}
+              <div className="w-full max-w-2xl mx-auto px-2">
                 <div className="relative flex items-center">
-                  <Search className="absolute left-4 size-4 text-slate-400 pointer-events-none" />
+                  <Search className="absolute left-4 size-4.5 text-[#86868b] pointer-events-none" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search 160 tools (e.g. compress, invoice, mortgage, base64, gradient, resume...)"
-                    className="w-full h-12 pl-11 pr-10 bg-slate-900/80 border border-slate-800 hover:border-slate-700 focus:border-blue-500 rounded-2xl text-xs sm:text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none transition shadow-xl"
+                    placeholder="Search tools (e.g. compress, invoice, mortgage, base64, watermark, ocr...)"
+                    className="w-full h-13 pl-12 pr-10 bg-white border border-black/[0.08] hover:border-black/[0.14] focus:border-[#0071e3] focus:ring-4 focus:ring-[#0071e3]/10 rounded-2xl text-xs sm:text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none transition shadow-[0_4px_16px_rgba(0,0,0,0.03)]"
                   />
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery("")}
-                      className="absolute right-3.5 p-1 text-slate-400 hover:text-white rounded-lg text-xs"
+                      className="absolute right-3.5 p-1 text-[#86868b] hover:text-[#1d1d1f] rounded-lg text-xs"
                     >
                       ✕
                     </button>
@@ -348,11 +307,11 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Category Filter Pills */}
+              {/* Apple Segmented Category Filter Pills */}
               <div className="flex flex-wrap items-center justify-center gap-2 max-w-4xl mx-auto animate-fade-in px-2">
                 {[
                   { label: "All Tools", id: "all", count: ALL_TOOLS.length },
-                  { label: "PDF Tools", id: "pdf", count: CATEGORY_METADATA.pdf.count },
+                  { label: "PDF Suite", id: "pdf", count: CATEGORY_METADATA.pdf.count },
                   { label: "Image Studio", id: "image", count: CATEGORY_METADATA.image.count },
                   { label: "Converters & Dev", id: "converter", count: CATEGORY_METADATA.converter.count },
                   { label: "Calculators", id: "calculator", count: CATEGORY_METADATA.calculator.count },
@@ -362,28 +321,28 @@ export default function Home() {
                   <button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id as any)}
-                    className={`h-8 px-3.5 rounded-full text-xs font-semibold transition-all border cursor-pointer flex items-center gap-1.5 ${
+                    className={`h-8.5 px-3.5 rounded-full text-xs font-semibold transition-all border cursor-pointer flex items-center gap-2 ${
                       selectedCategory === category.id
-                        ? "bg-white text-slate-950 border-white shadow-lg shadow-white/10 scale-[1.02]"
-                        : "bg-slate-900/60 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800"
+                        ? "bg-[#1d1d1f] text-white border-[#1d1d1f] shadow-md scale-[1.02]"
+                        : "bg-white/80 border-black/[0.06] text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-white shadow-xs"
                     }`}
                   >
                     <span>{category.label}</span>
-                    <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${selectedCategory === category.id ? "bg-slate-200 text-slate-900 font-bold" : "bg-slate-800 text-slate-400"}`}>
+                    <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${selectedCategory === category.id ? "bg-white/20 text-white" : "bg-black/[0.05] text-[#86868b]"}`}>
                       {category.count}
                     </span>
                   </button>
                 ))}
               </div>
 
-              {/* 160 Tools Dynamic Grid */}
+              {/* Dynamic Grid */}
               <div className="space-y-6 pt-2 w-full flex flex-col items-center">
-                <div className="border-b border-slate-800 pb-3 flex items-center justify-between w-full max-w-6xl px-2">
+                <div className="border-b border-black/[0.06] pb-3 flex items-center justify-between w-full max-w-6xl px-2">
                   <div className="flex items-center gap-2">
-                    <h2 className="text-xs font-bold text-slate-200 tracking-wider uppercase">
-                      {selectedCategory === "all" ? "All 160 Free Tools" : CATEGORY_METADATA[selectedCategory]?.name}
+                    <h2 className="text-xs font-bold text-[#1d1d1f] tracking-wider uppercase">
+                      {selectedCategory === "all" ? "All Tools" : CATEGORY_METADATA[selectedCategory]?.name}
                     </h2>
-                    <span className="text-[11px] text-slate-500 font-mono">
+                    <span className="text-[11px] text-[#86868b] font-medium">
                       ({ALL_TOOLS.filter((t) => {
                         const matchesCat = selectedCategory === "all" || t.category === selectedCategory;
                         if (!matchesCat) return false;
@@ -393,8 +352,8 @@ export default function Home() {
                       }).length} available)
                     </span>
                   </div>
-                  <span className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full font-bold tracking-wider uppercase">
-                    100% Free • No Signup
+                  <span className="text-[10px] text-[#28a745] bg-[#34c759]/10 border border-[#34c759]/20 px-2.5 py-1 rounded-full font-semibold tracking-wider uppercase">
+                    100% Client-Side • No Signup
                   </span>
                 </div>
 
@@ -426,215 +385,253 @@ export default function Home() {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[calc(100vh-14rem)] w-full relative z-10">
-              
-              {/* Left Column - Interactive Canvas Viewport */}
-              <div className="lg:col-span-7 flex flex-col h-full min-h-[400px]">
-                <div className="flex-grow min-h-0 bg-[#0B0D13] border border-white/[0.04] rounded-3xl shadow-2xl p-4 flex items-center justify-center relative overflow-hidden">
-                  <ComputeEngineMask
-                    isComputing={isProcessing}
-                    progressPercent={status.includes("Baking") ? 85 : 55}
-                    taskPhase={status || "Executing client-side document operation..."}
-                  />
-                  <div className="w-full h-full overflow-auto flex items-center justify-center">
-                    <InteractiveCanvas
-                      file={file}
-                      currentPage={currentPage}
-                      activeTool={activeTool}
-                      onAddRedactionZone={addRedactionZone}
-                      redactionZones={redactionZones}
-                      onClearRedactions={clearRedactions}
-                    />
+            /* macOS Studio Workbench (When file is open) */
+            <div className="w-full space-y-6">
+              {/* macOS Window Titlebar Header */}
+              <div className="bg-white/90 border border-black/[0.08] backdrop-blur-2xl rounded-2xl px-5 py-3.5 flex items-center justify-between shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-[#ff5f56] border border-[#e0443e]/40" />
+                    <div className="w-3 h-3 rounded-full bg-[#ffbd2e] border border-[#dea123]/40" />
+                    <div className="w-3 h-3 rounded-full bg-[#27c93f] border border-[#1aab29]/40" />
                   </div>
+                  <span className="text-xs font-semibold text-[#1d1d1f] truncate max-w-xs sm:max-w-md">
+                    {file.name}
+                  </span>
+                  {pageCount && (
+                    <span className="text-[11px] text-[#86868b] bg-black/[0.04] px-2 py-0.5 rounded-full font-medium">
+                      {pageCount} pages
+                    </span>
+                  )}
                 </div>
 
-                {pageCount && (
-                  <div className="flex justify-between items-center bg-white/[0.01] border border-white/[0.04] rounded-2xl px-5 py-3 mt-4 shrink-0 shadow-lg">
-                    <button
-                      disabled={currentPage === 1}
-                      onClick={() => setCurrentPage(c => Math.max(1, c - 1))}
-                      className="text-xs font-bold px-3 py-1.5 bg-white/[0.03] hover:bg-white/[0.06] disabled:opacity-20 rounded-lg transition-colors border border-white/[0.06] cursor-pointer text-white disabled:cursor-not-allowed"
-                    >
-                      Prev
-                    </button>
-                    <span className="text-xs font-bold text-gray-400">
-                      Page {currentPage} of {pageCount}
-                    </span>
-                    <button
-                      disabled={currentPage === pageCount}
-                      onClick={() => setCurrentPage(c => Math.min(pageCount, c + 1))}
-                      className="text-xs font-bold px-3 py-1.5 bg-white/[0.03] hover:bg-white/[0.06] disabled:opacity-20 rounded-lg transition-colors border border-white/[0.06] cursor-pointer text-white disabled:cursor-not-allowed"
-                    >
-                      Next
-                    </button>
-                  </div>
-                )}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={triggerDownload}
+                    className="h-8.5 px-4 bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs font-semibold rounded-full flex items-center gap-1.5 transition-all shadow-sm active:scale-[0.98] border-0 cursor-pointer"
+                  >
+                    <Download className="size-3.5" />
+                    Export Document
+                  </button>
+                  <button
+                    onClick={clearAll}
+                    className="h-8.5 px-3.5 bg-black/[0.04] hover:bg-black/[0.08] text-[#1d1d1f] text-xs font-medium rounded-full transition-colors cursor-pointer border border-black/[0.06]"
+                  >
+                    Close File
+                  </button>
+                </div>
               </div>
 
-              {/* Right Column - Controls Console */}
-              <div className="lg:col-span-5 flex flex-col h-full min-h-[400px] gap-5">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[calc(100vh-16rem)] w-full">
                 
-                {/* Tab Controls Panel */}
-                <div className="bg-white/[0.01] border border-white/[0.04] rounded-3xl p-5 flex flex-col min-h-0 flex-1 shadow-xl">
-                  
-                  {/* Segmented Control Switcher */}
-                  <div className="flex bg-[#0B0D13] border border-white/[0.04] p-1 rounded-2xl mb-5 gap-1 shrink-0">
-                    {[
-                      { label: "AI Prompt", id: "agent" },
-                      { label: "Redact", id: "redact" },
-                      { label: "Macro Console", id: "script" },
-                    ].map((tab) => (
+                {/* Left Column - Document Canvas Viewport */}
+                <div className="lg:col-span-7 flex flex-col h-full min-h-[400px]">
+                  <div className="flex-grow min-h-0 bg-white border border-black/[0.08] rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] p-4 flex items-center justify-center relative overflow-hidden">
+                    <ComputeEngineMask
+                      isComputing={isProcessing}
+                      progressPercent={status.includes("Baking") ? 85 : 55}
+                      taskPhase={status || "Executing client-side document operation..."}
+                    />
+                    <div className="w-full h-full overflow-auto flex items-center justify-center">
+                      <InteractiveCanvas
+                        file={file}
+                        currentPage={currentPage}
+                        activeTool={activeTool}
+                        onAddRedactionZone={addRedactionZone}
+                        redactionZones={redactionZones}
+                        onClearRedactions={clearRedactions}
+                      />
+                    </div>
+                  </div>
+
+                  {pageCount && (
+                    <div className="flex justify-between items-center bg-white border border-black/[0.06] rounded-2xl px-5 py-2.5 mt-3 shrink-0 shadow-xs">
                       <button
-                        key={tab.id}
-                        onClick={() => setActiveTab(tab.id as any)}
-                        className={`flex-1 text-[11px] font-bold py-2 rounded-xl transition-all cursor-pointer border-0 ${
-                          activeTab === tab.id
-                            ? "bg-white text-[#08090D] shadow-md font-extrabold"
-                            : "bg-transparent text-gray-400 hover:text-white"
-                        }`}
+                        disabled={currentPage === 1}
+                        onClick={() => setCurrentPage(c => Math.max(1, c - 1))}
+                        className="text-xs font-semibold px-3 py-1 bg-black/[0.04] hover:bg-black/[0.08] disabled:opacity-30 rounded-lg transition-colors border border-black/[0.04] cursor-pointer text-[#1d1d1f] disabled:cursor-not-allowed"
                       >
-                        {tab.label}
+                        Prev
                       </button>
-                    ))}
-                  </div>
-
-                  {/* Active Tab Panel Body */}
-                  <div className="flex-grow overflow-y-auto pr-1 min-h-0 text-xs">
-                    
-                    {activeTab === "agent" && (
-                      <div className="space-y-5 h-full flex flex-col justify-between">
-                        <div className="space-y-2.5">
-                          <span className="text-[9px] font-extrabold text-gray-500 uppercase tracking-widest block">
-                            AI Execution Instructions
-                          </span>
-                          <p className="text-gray-400 text-[11px] leading-relaxed font-light">
-                            Describe your modification in natural language (e.g. &quot;rotate first page 90 degrees&quot;, &quot;watermark confidential&quot;, &quot;redact emails&quot;).
-                          </p>
-                        </div>
-
-                        <form onSubmit={runAgentPrompt} className="space-y-3.5 pt-4">
-                          <textarea
-                            rows={4}
-                            value={agentPrompt}
-                            onChange={(e) => setAgentPrompt(e.target.value)}
-                            placeholder="e.g. rotate page 1 by 180 degrees and stamp draft..."
-                            className="w-full bg-[#0B0D13]/60 border border-white/[0.06] text-white rounded-xl p-3 text-xs focus:outline-none focus:border-[#6366F1]/50 placeholder-zinc-600 resize-none font-mono leading-relaxed"
-                          />
-                          <button
-                            type="submit"
-                            disabled={!agentPrompt.trim() || isProcessing}
-                            className="w-full h-10 bg-white hover:bg-gray-100 disabled:opacity-20 text-[#08090D] font-bold rounded-xl flex items-center justify-center gap-1.5 transition-colors border-0 cursor-pointer disabled:cursor-not-allowed shadow-lg"
-                          >
-                            Execute AI Prompt
-                          </button>
-                        </form>
-                      </div>
-                    )}
-
-                    {activeTab === "redact" && (
-                      <div className="space-y-5">
-                        <div className="space-y-2.5">
-                          <span className="text-[9px] font-extrabold text-gray-500 uppercase tracking-widest block">
-                            Canvas Redaction Controller
-                          </span>
-                          <p className="text-gray-400 text-[11px] leading-relaxed font-light">
-                            Click and drag redaction boxes over the PDF viewport on the left, then bake them permanently to black out data.
-                          </p>
-                        </div>
-
-                        <div className="flex gap-2.5 bg-[#0B0D13] p-1 rounded-2xl border border-white/[0.04]">
-                          <button
-                            onClick={() => setActiveTool("redact")}
-                            className={`flex-1 py-2 rounded-xl text-[11px] font-bold transition-all cursor-pointer border-0 ${
-                              activeTool === "redact"
-                                ? "bg-red-500/10 text-red-400 font-extrabold"
-                                : "bg-transparent text-gray-400 hover:text-white"
-                            }`}
-                          >
-                            Redact mode
-                          </button>
-                          <button
-                            onClick={() => setActiveTool("select")}
-                            className={`flex-1 py-2 rounded-xl text-[11px] font-bold transition-all cursor-pointer border-0 ${
-                              activeTool === "select"
-                                ? "bg-white/[0.04] text-white font-extrabold"
-                                : "bg-transparent text-gray-400 hover:text-white"
-                            }`}
-                          >
-                            Select mode
-                          </button>
-                        </div>
-
-                        <button
-                          onClick={applyRedactionBake}
-                          disabled={isProcessing}
-                          className="w-full h-10 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl flex items-center justify-center gap-1.5 transition-colors border-0 cursor-pointer shadow-lg shadow-red-500/10"
-                        >
-                          <ShieldCheck className="size-4" />
-                          Bake Redactions into PDF
-                        </button>
-                      </div>
-                    )}
-
-                    {activeTab === "script" && (
-                      <div className="space-y-5 h-full flex flex-col justify-between">
-                        <div className="space-y-2.5">
-                          <span className="text-[9px] font-extrabold text-gray-500 uppercase tracking-widest block">
-                            JavaScript Sandbox Macro
-                          </span>
-                          <p className="text-gray-400 text-[11px] leading-relaxed font-light">
-                            Run custom scripts directly inside your browser container using the programmatic `pdf-lib` document API.
-                          </p>
-                        </div>
-
-                        <div className="flex-grow pt-2">
-                          <textarea
-                            rows={8}
-                            value={macroScript}
-                            onChange={(e) => setMacroScript(e.target.value)}
-                            className="w-full bg-[#0B0D13]/60 border border-white/[0.06] text-white rounded-xl p-3 text-xs font-mono focus:outline-none focus:border-[#6366F1]/50 resize-none leading-relaxed"
-                          />
-                        </div>
-
-                        <button
-                          onClick={runMacroScript}
-                          disabled={isProcessing}
-                          className="w-full h-10 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl flex items-center justify-center gap-1.5 transition-colors mt-2 border-0 cursor-pointer shadow-lg shadow-emerald-500/10"
-                        >
-                          Run JavaScript Macro
-                        </button>
-                      </div>
-                    )}
-                  </div>
+                      <span className="text-xs font-medium text-[#6e6e73]">
+                        Page {currentPage} of {pageCount}
+                      </span>
+                      <button
+                        disabled={currentPage === pageCount}
+                        onClick={() => setCurrentPage(c => Math.min(pageCount, c + 1))}
+                        className="text-xs font-semibold px-3 py-1 bg-black/[0.04] hover:bg-black/[0.08] disabled:opacity-30 rounded-lg transition-colors border border-black/[0.04] cursor-pointer text-[#1d1d1f] disabled:cursor-not-allowed"
+                      >
+                        Next
+                      </button>
+                    </div>
+                  )}
                 </div>
 
-                {/* Live Terminal Logs Panel */}
-                <div className="bg-black/35 border border-white/[0.04] rounded-3xl p-5 h-48 flex flex-col shrink-0 shadow-2xl">
-                  <div className="flex items-center gap-2 border-b border-white/[0.04] pb-2.5 mb-2.5 shrink-0">
-                    <Terminal className="size-4 text-emerald-400" />
-                    <span className="text-[9px] font-extrabold tracking-widest uppercase text-emerald-400">
-                      Live Terminal Stream
-                    </span>
-                  </div>
+                {/* Right Column - Controls Console */}
+                <div className="lg:col-span-5 flex flex-col h-full min-h-[400px] gap-4">
                   
-                  <div className="flex-grow overflow-y-auto font-mono text-[10px] space-y-2 pr-1 text-zinc-400 leading-relaxed">
-                    {terminalLogs.map((log, index) => (
-                      <div key={index} className="flex gap-2">
-                        <span className="text-zinc-600 shrink-0">[{log.timestamp}]</span>
-                        <span className={log.type === "success" ? "text-emerald-400" : log.type === "warn" ? "text-amber-400" : log.type === "error" ? "text-red-400 font-semibold" : ""}>
-                          {log.message}
-                        </span>
-                      </div>
-                    ))}
-                    <div ref={terminalEndRef} />
+                  {/* Tab Controls Panel */}
+                  <div className="bg-white border border-black/[0.08] rounded-3xl p-5 flex flex-col min-h-0 flex-1 shadow-[0_4px_24px_rgba(0,0,0,0.03)]">
+                    
+                    {/* macOS Segmented Switcher */}
+                    <div className="flex bg-[#f5f5f7] border border-black/[0.04] p-1 rounded-2xl mb-4 gap-1 shrink-0">
+                      {[
+                        { label: "AI Prompt", id: "agent" },
+                        { label: "Redact", id: "redact" },
+                        { label: "Macro Console", id: "script" },
+                      ].map((tab) => (
+                        <button
+                          key={tab.id}
+                          onClick={() => setActiveTab(tab.id as any)}
+                          className={`flex-1 text-[11px] font-semibold py-1.5 rounded-xl transition-all cursor-pointer border-0 ${
+                            activeTab === tab.id
+                              ? "bg-white text-[#1d1d1f] shadow-sm font-bold"
+                              : "bg-transparent text-[#6e6e73] hover:text-[#1d1d1f]"
+                          }`}
+                        >
+                          {tab.label}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Active Tab Panel Body */}
+                    <div className="flex-grow overflow-y-auto pr-1 min-h-0 text-xs">
+                      
+                      {activeTab === "agent" && (
+                        <div className="space-y-4 h-full flex flex-col justify-between">
+                          <div className="space-y-1.5">
+                            <span className="text-[10px] font-bold text-[#86868b] uppercase tracking-wider block">
+                              AI Natural Language Action
+                            </span>
+                            <p className="text-[#6e6e73] text-xs leading-relaxed font-normal">
+                              Instruct the local agent to edit this PDF (e.g. &quot;rotate first page 90 degrees&quot;, &quot;watermark confidential&quot;, &quot;redact emails&quot;).
+                            </p>
+                          </div>
+
+                          <form onSubmit={runAgentPrompt} className="space-y-3 pt-2">
+                            <textarea
+                              rows={4}
+                              value={agentPrompt}
+                              onChange={(e) => setAgentPrompt(e.target.value)}
+                              placeholder="e.g. rotate page 1 by 180 degrees and stamp DRAFT..."
+                              className="w-full bg-[#fbfbfd] border border-black/[0.08] text-[#1d1d1f] rounded-2xl p-3 text-xs focus:outline-none focus:border-[#0071e3] focus:ring-3 focus:ring-[#0071e3]/10 placeholder-[#86868b] resize-none font-mono leading-relaxed"
+                            />
+                            <button
+                              type="submit"
+                              disabled={!agentPrompt.trim() || isProcessing}
+                              className="w-full h-10 bg-[#0071e3] hover:bg-[#0077ed] disabled:opacity-30 text-white font-semibold rounded-2xl flex items-center justify-center gap-1.5 transition-all border-0 cursor-pointer disabled:cursor-not-allowed shadow-sm active:scale-[0.98]"
+                            >
+                              Execute Local AI Prompt
+                            </button>
+                          </form>
+                        </div>
+                      )}
+
+                      {activeTab === "redact" && (
+                        <div className="space-y-4">
+                          <div className="space-y-1.5">
+                            <span className="text-[10px] font-bold text-[#86868b] uppercase tracking-wider block">
+                              Canvas Redaction Controller
+                            </span>
+                            <p className="text-[#6e6e73] text-xs leading-relaxed font-normal">
+                              Click and drag redaction boxes over the PDF viewport on the left, then bake them permanently to black out sensitive data.
+                            </p>
+                          </div>
+
+                          <div className="flex gap-2 bg-[#f5f5f7] p-1 rounded-2xl border border-black/[0.04]">
+                            <button
+                              onClick={() => setActiveTool("redact")}
+                              className={`flex-1 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer border-0 ${
+                                activeTool === "redact"
+                                  ? "bg-white text-[#ff3b30] shadow-sm font-bold"
+                                  : "bg-transparent text-[#6e6e73] hover:text-[#1d1d1f]"
+                              }`}
+                            >
+                              Redact mode
+                            </button>
+                            <button
+                              onClick={() => setActiveTool("select")}
+                              className={`flex-1 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer border-0 ${
+                                activeTool === "select"
+                                  ? "bg-white text-[#1d1d1f] shadow-sm font-bold"
+                                  : "bg-transparent text-[#6e6e73] hover:text-[#1d1d1f]"
+                              }`}
+                            >
+                              Select mode
+                            </button>
+                          </div>
+
+                          <button
+                            onClick={applyRedactionBake}
+                            disabled={isProcessing}
+                            className="w-full h-10 bg-[#ff3b30] hover:bg-[#d70015] text-white font-semibold rounded-2xl flex items-center justify-center gap-1.5 transition-colors border-0 cursor-pointer shadow-sm shadow-red-500/10"
+                          >
+                            <ShieldCheck className="size-4" />
+                            Bake Redactions into PDF
+                          </button>
+                        </div>
+                      )}
+
+                      {activeTab === "script" && (
+                        <div className="space-y-4 h-full flex flex-col justify-between">
+                          <div className="space-y-1.5">
+                            <span className="text-[10px] font-bold text-[#86868b] uppercase tracking-wider block">
+                              JavaScript Sandbox Macro
+                            </span>
+                            <p className="text-[#6e6e73] text-xs leading-relaxed font-normal">
+                              Run custom scripts directly inside your browser container using the programmatic `pdf-lib` document API.
+                            </p>
+                          </div>
+
+                          <div className="flex-grow pt-1">
+                            <textarea
+                              rows={8}
+                              value={macroScript}
+                              onChange={(e) => setMacroScript(e.target.value)}
+                              className="w-full bg-[#fbfbfd] border border-black/[0.08] text-[#1d1d1f] rounded-2xl p-3 text-xs font-mono focus:outline-none focus:border-[#0071e3] resize-none leading-relaxed"
+                            />
+                          </div>
+
+                          <button
+                            onClick={runMacroScript}
+                            disabled={isProcessing}
+                            className="w-full h-10 bg-[#34c759] hover:bg-[#28a745] text-white font-semibold rounded-2xl flex items-center justify-center gap-1.5 transition-colors mt-2 border-0 cursor-pointer shadow-sm shadow-green-500/10"
+                          >
+                            Run JavaScript Macro
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Live Terminal Logs Panel (Apple Console Style) */}
+                  <div className="bg-[#1c1c1e] border border-black/[0.08] rounded-3xl p-4.5 h-48 flex flex-col shrink-0 shadow-xl text-white">
+                    <div className="flex items-center gap-2 border-b border-white/[0.08] pb-2 mb-2 shrink-0">
+                      <Terminal className="size-3.5 text-[#30d158]" />
+                      <span className="text-[10px] font-semibold tracking-wider uppercase text-[#30d158]">
+                        Local Console Stream
+                      </span>
+                    </div>
+                    
+                    <div className="flex-grow overflow-y-auto font-mono text-[10px] space-y-1.5 pr-1 text-[#a1a1aa] leading-relaxed">
+                      {terminalLogs.map((log, index) => (
+                        <div key={index} className="flex gap-2">
+                          <span className="text-[#71717a] shrink-0">[{log.timestamp}]</span>
+                          <span className={log.type === "success" ? "text-[#30d158]" : log.type === "warn" ? "text-[#ffd60a]" : log.type === "error" ? "text-[#ff453a] font-semibold" : "text-[#e4e4e7]"}>
+                            {log.message}
+                          </span>
+                        </div>
+                      ))}
+                      <div ref={terminalEndRef} />
+                    </div>
                   </div>
                 </div>
-              </div>
 
+              </div>
             </div>
           )}
         </div>
-      </main>
-    </div>
-);
+      </div>
+    </Shell>
+  );
 }

@@ -60,7 +60,7 @@ export default function ImageFlipper() {
           className="inline-flex items-center text-xs font-semibold text-slate-400 hover:text-blue-400 transition-colors gap-2 group"
         >
           <ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
-          <span>All 160 Free Tools</span>
+          <span>All Tools</span>
           <span className="text-slate-600">/</span>
           <span className="text-slate-400">Image Studio</span>
         </Link>

@@ -13,26 +13,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PDFGhost - Browser-first PDF toolkit",
-  description: "PDFGhost is the browser-native PDF editor and converter with client-side privacy, fast WebAssembly workflows, and zero uploads.",
+  title: "PDFZero — Apple Studio Document Suite",
+  description: "160+ free tools for PDF, images, dev conversions, and business documents. 100% private, client-side, zero-upload WebAssembly processing.",
   manifest: "/manifest.json",
-  themeColor: "#0F172A",
+  themeColor: "#fbfbfd",
   openGraph: {
-    title: "PDFGhost - Browser-first PDF toolkit",
-    description: "Fix, convert, and optimize PDFs in the browser with zero upload.",
+    title: "PDFZero — Apple Studio Document Suite",
+    description: "Fast, private, client-side PDF editing and 160 free offline tools.",
     type: "website",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "PDFGhost — browser-native PDF tool suite",
+        alt: "PDFZero — Apple Studio Document Suite",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PDFGhost - Browser-first PDF toolkit",
+    title: "PDFZero — Apple Studio Document Suite",
     description: "Fast, private, client-side PDF editing and conversion.",
   },
 };
@@ -47,10 +47,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col bg-[#fbfbfd] text-[#1d1d1f]" suppressHydrationWarning>
         <ServiceWorkerRegister />
         {children}
       </body>

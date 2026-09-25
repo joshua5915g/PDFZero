@@ -102,16 +102,25 @@ export default function DefensiveDropZone({
           const droppedFiles = Array.from(e.dataTransfer.files || []);
           if (droppedFiles.length > 0) inspectFiles(droppedFiles);
         }}
+        tabIndex={0}
+        role="button"
+        aria-label={label}
         onClick={() => inputRef.current?.click()}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            inputRef.current?.click();
+          }
+        }}
         whileHover={{ scale: 1.006 }}
         whileTap={{ scale: 0.994 }}
         transition={{ type: "spring", stiffness: 450, damping: 28 }}
-        className={`relative cursor-pointer rounded-2xl border-2 border-dashed p-8 sm:p-10 text-center transition-colors duration-200 select-none ${
+        className={`relative cursor-pointer rounded-3xl border-2 border-dashed p-6 sm:p-10 text-center transition-all duration-200 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0071e3] focus-visible:ring-offset-2 ${
           dragState === "valid_drag"
-            ? "border-emerald-500/80 bg-emerald-950/20"
+            ? "border-[#0071e3] bg-[#0071e3]/5 shadow-[0_8px_32px_rgba(0,113,227,0.1)] scale-[1.01]"
             : errorMessage
-            ? "border-rose-500/50 bg-rose-950/15"
-            : "border-zinc-800 bg-[#0c0d10] hover:border-zinc-700"
+            ? "border-[#ff3b30]/60 bg-[#ff3b30]/5"
+            : "border-black/[0.1] bg-white hover:border-[#0071e3]/40 hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)]"
         }`}
       >
         <input
@@ -125,25 +134,13 @@ export default function DefensiveDropZone({
         />
 
         <div className="flex flex-col items-center justify-center space-y-3 pointer-events-none">
-          <div className="p-3.5 rounded-2xl bg-zinc-900 border border-zinc-800/80 text-zinc-300 shadow-inner">
-            <UploadCloud className="w-6 h-6 text-zinc-400" />
+          <div className="p-3.5 rounded-2xl bg-[#0071e3]/10 text-[#0071e3] shadow-xs">
+            <UploadCloud className="w-7 h-7 text-[#0071e3]" />
           </div>
 
           <div>
-            <div className="text-sm font-semibold text-[#e2e4e9] tracking-tight">{label}</div>
-            <div className="text-xs text-[#8c929d] mt-1">{sublabel}</div>
-          </div>
-
-          <div className="flex items-center gap-3 pt-1 text-[11px] font-mono text-[#5e636e]">
-            <span className="flex items-center gap-1">
-              <HardDrive className="w-3 h-3 text-zinc-500" />
-              Budget: {(maxBytes / (1024 * 1024)).toFixed(0)}MB RAM
-            </span>
-            <span>•</span>
-            <span className="flex items-center gap-1 text-emerald-400/90 font-sans font-medium">
-              <ShieldCheck className="w-3 h-3 text-emerald-400" />
-              Air-Gapped Local
-            </span>
+            <div className="text-sm sm:text-base font-bold text-[#1d1d1f] tracking-tight">{label}</div>
+            <div className="text-xs text-[#6e6e73] mt-1 font-normal">{sublabel}</div>
           </div>
         </div>
       </motion.div>
@@ -155,9 +152,9 @@ export default function DefensiveDropZone({
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="flex items-start gap-2.5 p-3.5 rounded-xl bg-rose-950/30 border border-rose-500/30 text-rose-300 text-xs font-mono"
+            className="flex items-start gap-2.5 p-3.5 rounded-2xl bg-[#ff3b30]/10 border border-[#ff3b30]/20 text-[#d70015] text-xs font-medium"
           >
-            <AlertOctagon className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+            <AlertOctagon className="w-4 h-4 text-[#d70015] shrink-0 mt-0.5" />
             <span className="leading-relaxed">{errorMessage}</span>
           </motion.div>
         )}

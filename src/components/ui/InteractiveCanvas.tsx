@@ -177,15 +177,15 @@ export default function InteractiveCanvas({
   };
 
   return (
-    <div className="flex flex-col items-center h-full w-full bg-[#151824]/40 border border-white/[0.06] rounded-2xl overflow-hidden p-4 space-y-4">
+    <div className="flex flex-col items-center h-full w-full bg-[#fbfbfd] border border-black/[0.06] rounded-2xl overflow-hidden p-4 space-y-4">
       
       {/* Visual Controls Viewport Header */}
-      <div className="w-full flex items-center justify-between border-b border-white/[0.06] pb-3 shrink-0">
-        <span className="text-xs font-bold text-[#F1F3F9] flex items-center gap-2">
-          Page {currentPage} Viewport
+      <div className="w-full flex items-center justify-between border-b border-black/[0.06] pb-3 shrink-0">
+        <span className="text-xs font-semibold text-[#1d1d1f] flex items-center gap-2">
+          Page {currentPage} Preview
           {activeTool === "redact" && (
-            <span className="text-[10px] bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded-full uppercase tracking-wider font-bold">
-              Redact Mode Active (Drag to Mask)
+            <span className="text-[10px] bg-[#ff3b30]/10 text-[#d70015] border border-[#ff3b30]/20 px-2 py-0.5 rounded-full font-bold">
+              Redact Mode (Drag to Mask)
             </span>
           )}
         </span>
@@ -193,23 +193,25 @@ export default function InteractiveCanvas({
         <div className="flex items-center gap-2">
           <button 
             onClick={() => setZoom(z => Math.max(0.5, z - 0.1))}
-            className="p-1.5 hover:bg-white/5 border border-white/10 rounded-lg text-gray-400 hover:text-white transition-colors"
+            className="p-1.5 hover:bg-black/[0.05] border border-black/[0.06] rounded-full text-[#6e6e73] hover:text-[#1d1d1f] transition-colors cursor-pointer"
+            title="Zoom Out"
           >
-            <ZoomOut className="size-4" />
+            <ZoomOut className="size-3.5" />
           </button>
-          <span className="text-xs font-semibold text-gray-400 w-12 text-center select-none">
+          <span className="text-xs font-medium text-[#1d1d1f] w-12 text-center select-none font-mono">
             {Math.round(zoom * 100)}%
           </span>
           <button 
             onClick={() => setZoom(z => Math.min(2.0, z + 0.1))}
-            className="p-1.5 hover:bg-white/5 border border-white/10 rounded-lg text-gray-400 hover:text-white transition-colors"
+            className="p-1.5 hover:bg-black/[0.05] border border-black/[0.06] rounded-full text-[#6e6e73] hover:text-[#1d1d1f] transition-colors cursor-pointer"
+            title="Zoom In"
           >
-            <ZoomIn className="size-4" />
+            <ZoomIn className="size-3.5" />
           </button>
           {onClearRedactions && (redactionZones[currentPage] || []).length > 0 && (
             <button
               onClick={() => onClearRedactions(currentPage)}
-              className="text-[10px] text-red-400 hover:underline font-bold px-2"
+              className="text-[10px] text-[#ff3b30] hover:underline font-bold px-2 cursor-pointer"
             >
               Clear Marks
             </button>
@@ -222,7 +224,7 @@ export default function InteractiveCanvas({
         ref={canvasContainerRef}
         className="flex-1 w-full overflow-auto flex items-start justify-center relative p-2"
       >
-        <div className="relative shadow-lg border border-white/[0.08] rounded bg-white">
+        <div className="relative shadow-md border border-black/[0.08] rounded-xl bg-white overflow-hidden">
           {/* Base PDF Canvas layer */}
           <canvas ref={canvasRef} className="block" />
 
@@ -237,9 +239,9 @@ export default function InteractiveCanvas({
         </div>
 
         {isLoading && (
-          <div className="absolute inset-0 bg-[#0F111A]/60 backdrop-blur-xs flex flex-col items-center justify-center gap-3">
-            <Loader2 className="size-6 text-[#6366F1] animate-spin" />
-            <span className="text-xs text-gray-500 font-semibold">Rendering page content...</span>
+          <div className="absolute inset-0 bg-white/75 backdrop-blur-xs flex flex-col items-center justify-center gap-3">
+            <Loader2 className="size-6 text-[#0071e3] animate-spin" />
+            <span className="text-xs text-[#6e6e73] font-medium">Rendering document preview...</span>
           </div>
         )}
       </div>
